@@ -2,12 +2,13 @@
   "name": "p1-video_streaming_platform_with_ai",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+ "scripts": {
+  "dev": "next dev --turbopack",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "postinstall": "npx lightningcss --help || echo 'lightningcss fallback triggered'"
+},
   "dependencies": {
     "@emnapi/core": "^1.4.4",
     "@emnapi/runtime": "^1.4.4",
