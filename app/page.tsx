@@ -63,10 +63,15 @@ const categoriesItems = [
     image: "https://ik.imagekit.io/kunksthhw/10.webp?updatedAt=1753036144506",
     title: "Hybrid Life at Microsoft",
   },
-  {
+  // {
+  //   id: 11,
+  //   image: "https://ik.imagekit.io/kunksthhw/11.webp?updatedAt=1753036144544",
+  //   title: "Accenture Canteen Food Review",
+  // },
+   {
     id: 11,
-    image: "https://ik.imagekit.io/kunksthhw/11.webp?updatedAt=1753036144544",
-    title: "Accenture Canteen Food Review",
+    image: "https://ik.imagekit.io/kunksthhw/14.webp?updatedAt=1753036144337",
+    title: "Office Walkthrough: HCL Tech",
   },
   {
     id: 12,
