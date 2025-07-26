@@ -85,71 +85,71 @@ const categoriesItems = [
   },
 ];
 
-const testimonials: Array<{
-  quote: string;
-  name: string;
-  designation: string;
-  src: string;
-}> = [
-  {
-    quote:
-      "As a developer, I appreciate platforms that blend technical insight with storytelling — and this one nails it.",
-    name: "Rt Kush",
-    designation: "Founder @RealTime ChatApp",
-    src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-20%20202050.png?updatedAt=1753023076751",
-  },
+// const testimonials: Array<{
+//   quote: string;
+//   name: string;
+//   designation: string;
+//   src: string;
+// }> = [
+//   {
+//     quote:
+//       "As a developer, I appreciate platforms that blend technical insight with storytelling — and this one nails it.",
+//     name: "Rt Kush",
+//     designation: "Founder @RealTime ChatApp",
+//     src: "https://ik.imagekit.io/kunksthhw/kush_sOvNe-UGU?updatedAt=1753291399827",
+//   },
 
-  {
-    quote:
-      "This platform helped me connect with like-minded developers and learn how people in other companies tackle real-world tech challenges.",
-    name: "Rt Lav",
-    designation: "Founder @NIT DRIVE",
-    src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-20%20202050.png?updatedAt=1753023076751",
-  },
-  {
-    quote:
-      "Reading blogs here gave me deep insights into company work cultures. It helped me prepare better for interviews and understand what tech stacks are in demand.",
-    name: "Vishal Jain",
-    designation: "Founder @AI DSA Tracker",
-    src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-20%20202050.png?updatedAt=1753023076751",
-  },
-  {
-    quote:
-      "Thanks to this platform, I now understand how different tech roles function in a team — from frontend devs to DevOps engineers.",
-    name: "Pradeep Solanki",
-    designation: "Founder @---",
-    src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-20%20202050.png?updatedAt=1753023076751",
-  },
-  {
-    quote:
-      "This site guided me through my first open-source contribution journey. I got to read success stories and challenges faced by other contributors.",
-    name: "Praveer",
-    designation: "Founder @Easy Rent",
-    src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-20%20202050.png?updatedAt=1753023076751",
-  },
-  {
-    quote:
-      "The platform is more than a blog — it’s like a tech diary space where I share my experiences and learn from others. Super motivating!",
-    name: "Harshit Mishra",
-    designation: "Founder @AI Resume Builder",
-    src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-20%20202050.png?updatedAt=1753023076751",
-  },
+//   {
+//     quote:
+//       "This platform helped me connect with like-minded developers and learn how people in other companies tackle real-world tech challenges.",
+//     name: "Rt Lav",
+//     designation: "Founder @NIT DRIVE",
+//     src: "https://ik.imagekit.io/kunksthhw/lav_1Vx0Qp_wG?updatedAt=1753290475875",
+//   },
+//   {
+//     quote:
+//       "Reading blogs here gave me deep insights into company work cultures. It helped me prepare better for interviews and understand what tech stacks are in demand.",
+//     name: "Vishal Jain",
+//     designation: "Founder @AI DSA Tracker",
+//     src: "https://ik.imagekit.io/kunksthhw/vishal_4H01nPvtY?updatedAt=1753291685095",
+//   },
+//   {
+//     quote:
+//       "Thanks to this platform, I now understand how different tech roles function in a team — from frontend devs to DevOps engineers.",
+//     name: "Pradeep Solanki",
+//     designation: "Founder @E-Store",
+//     src: "https://ik.imagekit.io/kunksthhw/pra_6978aee6u?updatedAt=1753291360340",
+//   },
+//   {
+//     quote:
+//       "This site guided me through my first open-source contribution journey. I got to read success stories and challenges faced by other contributors.",
+//     name: "Praveer",
+//     designation: "Founder @Easy Rent",
+//     src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-23%20223359.png?updatedAt=1753290434822",
+//   },
+//   {
+//     quote:
+//       "The platform is more than a blog — it’s like a tech diary space where I share my experiences and learn from others. Super motivating!",
+//     name: "Harshit Mishra",
+//     designation: "Founder @AI Resume Builder",
+//     src: "https://ik.imagekit.io/kunksthhw/har_PnDbzjGC3?updatedAt=1753290552224",
+//   },
 
-  {
-    quote:
-      "Reading honest workplace reviews and project experiences helped me choose the right company culture and avoid toxic environments.",
-    name: "Kush Gupta",
-    designation: "Founder @FoodHub",
-    src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-20%20202050.png?updatedAt=1753023076751",
-  },
-  {
-    quote:
-      "I always look forward to the real-world case studies posted here. They go beyond theory and show how tech is used to solve actual business problems.",
-    name: "Umang",
-    designation: "Founder @---",
-    src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-20%20202050.png?updatedAt=1753023076751",
-  },
-];
+//   {
+//     quote:
+//       "Reading honest workplace reviews and project experiences helped me choose the right company culture and avoid toxic environments.",
+//     name: "Kush Gupta",
+//     designation: "Founder @FoodHub",
+//     src: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-23%20230410.png?updatedAt=1753292121861",
+//   },
+//   {
+//     quote:
+//       "I always look forward to the real-world case studies posted here. They go beyond theory and show how tech is used to solve actual business problems.",
+//     name: "Umang",
+//     designation: "Founder @---",
+//     src: "https://ik.imagekit.io/kunksthhw/um_2mzR97R4j?updatedAt=1753290511171",
+//   },
+// ];
 
 export default function Home() {
   return (
@@ -169,8 +169,8 @@ export default function Home() {
         />{" "}
       </div>
 
-      {/* Testimonial */}
-      <AnimatedTestimonials testimonials={testimonials} />
+      {/* Testimonial-When You Want to Show User's FeedBack then UnComment From here Below Line */}
+      {/* <AnimatedTestimonials testimonials={testimonials} /> */}
       {/* Separator */}
       <div className="w-fit mx-auto mt-16 flex space-x-2">
         <div className="h-0.5 w-2 bg-gray-600"></div>

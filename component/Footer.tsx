@@ -20,7 +20,7 @@ export default function Footer() {
           {/* Developer Image */}
           <div className="flex-shrink-0">
             <Image
-              src="https://ik.imagekit.io/kunksthhw/p2.jpeg?updatedAt=1753017606363"
+              src="https://ik.imagekit.io/kunksthhw/kush_sOvNe-UGU?updatedAt=1753291399827"
               alt="rt kush"
               
               width={160}   
@@ -45,12 +45,7 @@ export default function Footer() {
               MCA from NIT Raipur, Chaatisgarh. I love to Code. Passionate about building real-world solutions using full-stack development. Skilled in Java, React, Node.js, and
 MongoDB with a focus on performance, simple design, and real-time features.
             </p>
-            {/* <p className="text-sm text-orange-800 font-medium">
-               Available for{" "}
-              New Opportunity, {" "}
-              Internships &{" "}
-             Collaborations.
-            </p> */}
+           
           </div>
         </div>
 

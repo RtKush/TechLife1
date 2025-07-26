@@ -100,7 +100,7 @@ const BlogList = () => {
                   </h3>
 
                    <p className="p-1 text-gray-700 text-[15px] leading-relaxed line-clamp-3">
-                   Summary : {post.summary}
+                    : {post.summary}
                   </p>
 
                   <div className="flex flex-wrap gap-1 mt-3">

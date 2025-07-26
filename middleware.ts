@@ -22,7 +22,7 @@ export default withAuth(
                 // Routes anyone can visit if they start with these prefixes:
                 const publicPrefixes = [
                     "/api/auth",
-                    "/reels",
+                    // "/reels",
                     "/blog",
                     "/profile",
                     "/api/search"
@@ -32,7 +32,7 @@ export default withAuth(
 
                 if (pathname.startsWith("/api/post") && req.method === "GET") return true
 
-                if (pathname.startsWith("/api/reel") && req.method === "GET") return true
+                // if (pathname.startsWith("/api/reel") && req.method === "GET") return true
 
                 if (pathname.startsWith("/api/comments") && req.method === "GET") return true
 

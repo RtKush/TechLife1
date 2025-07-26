@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { MediaItem } from "./media.types";
 import { InferSchemaType } from "mongoose";
-import { videoSchema } from "@/model/reels.model";
+// import { videoSchema } from "@/model/reels.model";
 
 export interface Author {
     _id: mongoose.Types.ObjectId;

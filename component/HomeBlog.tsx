@@ -51,10 +51,10 @@ const HomeBlog = () => {
   if (isLoading1 || isLoading2 || isLoading3 || isLoading4)
     return <p className="text-center text-gray-500 mt-8">Loading posts...</p>;
   return (
-    <section className="bg-white py-10 sm:py-14 lg:py-2">
+    <section className="bg-white py-10 sm:py-14 lg:py-0">
       <div className="mx-auto max-w-screen-xl px-4 md:px-8">
         {/* Heading */}
-        <div className="mb-12 text-center">
+        <div className="mb-1 text-center">
           <h2 className="text-3xl font-extrabold text-cyan-500 md:text-4xl">
             Join Community with TechLife.
           </h2>

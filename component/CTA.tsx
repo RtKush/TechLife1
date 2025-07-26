@@ -5,50 +5,58 @@ import { useAuth } from "@/hooks/userAuth";
 import Link from "next/link";
 import React from "react";
 
+  
+
+ 
+ 
+  
+  
+ 
+
 const people = [
   {
     id: 4,
     name: "Rt Kush",
-    designation: "Developer",
-    image: "https://ik.imagekit.io/kunksthhw/profile-pic.png?updatedAt=1753025214466",
+    designation: "NIT Raipur",
+    image: "https://ik.imagekit.io/kunksthhw/kush_sOvNe-UGU?updatedAt=1753291399827",
   },
   {
     id: 5,
     name: "Rt Lav",
-    designation: "Developer",
-    image: "https://ik.imagekit.io/kunksthhw/IMG_20211116_192148.jpg?updatedAt=1753025246923",
+    designation: "MNNIT Allahabad",
+    image:   "https://ik.imagekit.io/kunksthhw/lav_1Vx0Qp_wG?updatedAt=1753290475875",
   },
   {
     id: 1,
     name: "Vishal Jain",
     designation: "NIT Raipur",
-    image: "https://ik.imagekit.io/kunksthhw/Screenshot_2019-07-28-15-31-05.png?updatedAt=1753025223533",
+    image:  "https://ik.imagekit.io/kunksthhw/vishal_4H01nPvtY?updatedAt=1753291685095",
   },
   {
     id: 2,
     name: "Pradeep Solanki",
     designation: "NIT Raipur",
-    image: "https://ik.imagekit.io/kunksthhw/IMG_20230905_145752.jpg?updatedAt=1753025219189",
+    image:  "https://ik.imagekit.io/kunksthhw/pra_6978aee6u?updatedAt=1753291360340",
   },
   {
     id: 3,
     name: "Praveer",
     designation: "MANIT Bhopal",
-    image: "https://ik.imagekit.io/kunksthhw/IMG_20191117_105759.jpg?updatedAt=1753025189336",
+    image: "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-23%20223359.png?updatedAt=1753290434822",
   },
 
   {
     id: 6,
     name: "Harshit Mishra",
     designation: "NIT Raipur",
-    image: "https://ik.imagekit.io/kunksthhw/IMG_142541804.jpg?updatedAt=1753025189246",
+    image: "https://ik.imagekit.io/kunksthhw/har_PnDbzjGC3?updatedAt=1753290552224",
   },
 
   {
     id: 9,
-    name: "Vicky Singh",
+    name: "Kush Gupta",
     designation: "NIT Raipur",
-    image: "https://ik.imagekit.io/kunksthhw/IMG-20200122-WA0003.jpg?updatedAt=1753025189217",
+    image:  "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-23%20230410.png?updatedAt=1753292121861",
   },
   // {
   //   id: 7,

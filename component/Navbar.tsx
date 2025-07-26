@@ -23,15 +23,15 @@ export default function MainNavbar() {
   const authLinks = [
     { label: "Home", path: "/", icon: Home },
     { label: "Blogs", path: "/blog", icon: FileText },
-    { label: "Reels", path: "/reels", icon: Video },
+    // { label: "Reels", path: "/reels", icon: Video },
     { label: "Add Blog", path: "/create-blog", icon: Plus },
-    { label: "Add Reel", path: "/add-reel", icon: Plus },
+    // { label: "Add Reel", path: "/add-reel", icon: Plus },
   ];
 
   const guestLinks = [
     { label: "Home", path: "/", icon: Home },
     { label: "Blogs", path: "/blog", icon: FileText },
-    { label: "Reels", path: "/reels", icon: Video },
+    // { label: "Reels", path: "/reels", icon: Video },
     { label: "Login", path: "/auth/login", icon: LogIn },
     { label: "Register", path: "/auth/register", icon: UserPlus },
   ];

@@ -97,7 +97,7 @@ export default function AccountDropdown({
       section: "User Resource",
       items: [
         { icon: Package, label: "All-Blogs", path: "/blog" },
-        { icon: Package, label: "All-Reels", path: "/reels" },
+        // { icon: Package, label: "All-Reels", path: "/reels" },
       ],
     },
     {

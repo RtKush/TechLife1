@@ -74,18 +74,20 @@
 //  */
 
 
+
+
 import { connectToDB } from "@/lib/db.lib";
 import User from "@/model/user.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    // ── 1. Parse & basic validation ────────────────────────────────
-    const { email: rawEmail, password: rawPassword } = await req.json() as {
-      email?: string;
-      password?: string;
-    };
+    // ── 1. Parse request body ─────────────────────────────
+    const body = await req.json();
+    const rawEmail: string = body?.email;
+    const rawPassword: string = body?.password;
 
+    // ── 2. Basic validation ───────────────────────────────
     if (!rawEmail || !rawPassword) {
       return NextResponse.json(
         { error: "Both email and password are required." },
@@ -103,29 +105,28 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // ── 2. DB connection ───────────────────────────────────────────
+    // ── 3. Connect to DB ──────────────────────────────────
     await connectToDB();
 
-    // ── 3. Check if user already exists ────────────────────────────
-    const existing = await User.findOne({ email });
-    if (existing) {
+    // ── 4. Check for existing user ────────────────────────
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return NextResponse.json(
         { error: `User already exists with email: ${email}` },
-        { status: 409 } // Conflict
+        { status: 409 }
       );
     }
 
-    // ── 4. Create user  (userName auto‑generated in model hook) ────
-   const newUser = new User({ email, password });
-await newUser.save(); // <-- triggers the pre("save") hook to auto-generate userName
-
+    // ── 5. Create new user ────────────────────────────────
+    const newUser = new User({ email, password });
+    await newUser.save(); // triggers pre("save") hook for hashing, etc.
 
     return NextResponse.json(
-      { message: "User registered successfully!" },
+      { message: "✅ User registered successfully!" },
       { status: 201 }
     );
-  } catch (err) {
-    console.error("[REGISTER] Error:", err);
+  } catch (err: any) {
+    console.error("[REGISTER] ❌ Server error:", err.message || err);
     return NextResponse.json(
       { error: "Server error. Please try again later." },
       { status: 500 }

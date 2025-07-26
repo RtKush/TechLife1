@@ -129,13 +129,7 @@ export default function SigninForm() {
             <div className="flex-grow border-t border-gray-500"></div>
           </div>
 
-          {/* <button
-            type="button"
-            className="w-full flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-lg hover:bg-gray-50 transition"
-          >
-            <FaGoogle className="h-5 w-5" />
-            Continue with Google
-          </button> */}
+         
         </form>
 
         <p className="text-sm text-center text-gray-600 mt-6">

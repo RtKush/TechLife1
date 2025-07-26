@@ -21,10 +21,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TechLife",
   description:
-    "Discover, learn and create on TechLife — a community-driven platform for blogs, video reels, and creative stories. Share your ideas, explore new content, and grow together.",
+    "Discover, learn and create on TechLife — a community-driven platform for blogs, and creative stories. Share your ideas, explore new content, and grow together.",
   keywords: [
     "blog platform",
-    "video reels",
+    // "video reels",
     "blog",
     "next.js",
     "react",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "creative community",
     "learning platform",
     "Next.js blog app",
-    "Next.js video reels",
+    // "Next.js video reels",
     "ImageKit hosting",
     "open blogging platform",
     "collaborative learning",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     url: "https://contentbanao.vercel.app/",
     title: "TechLife",
     description:
-      "Create, discover and learn with TechLife — where blogs, video reels, and ideas meet for everyone.",
+      "Create, discover and learn with TechLife — where blogs, and ideas meet for everyone.",
     images: [
       {
         url: "https://ik.imagekit.io/thissidemayur/ogopengraph_LgzDvH4XMP.jpg", // replace
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     creator: "@rtkush",
     title: "TechLife",
     description:
-      "Create, share and explore blogs and video reels with TechLife — a platform for creators and learners alike.",
+      "Create, share and explore blogs with TechLife — a platform for creators and learners alike.",
     images: ["https://ik.imagekit.io/thissidemayur/ogopengraph_LgzDvH4XMP.jpg"], // here replace
   },
   other: {

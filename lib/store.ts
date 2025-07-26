@@ -3,7 +3,7 @@ import { blogsApi } from '@/features/blogs/blogsApi'
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from '@/features/auth/authSlice'
 import { commentsApi } from '@/features/comments/commentsApi'
-import { reelApi } from '@/features/reels/reelsApi'
+// import { reelApi } from '@/features/reels/reelsApi'
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
     [blogsApi.reducerPath]: blogsApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [commentsApi.reducerPath]: commentsApi.reducer,
-    [reelApi.reducerPath]: reelApi.reducer,
+    // [reelApi.reducerPath]: reelApi.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -35,7 +35,7 @@ export const makeStore = () =>
                 .concat(authApi.middleware)
                 .concat(blogsApi.middleware)
                 .concat(commentsApi.middleware)
-                .concat(reelApi.middleware),
+                // .concat(reelApi.middleware),
     })
 
 // export persistor for PersistGate
