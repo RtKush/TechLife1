@@ -50,11 +50,11 @@ export const metadata: Metadata = {
       "Create, discover and learn with TechLife — where blogs, and ideas meet for everyone.",
     images: [
       {
-        url: "https://ik.imagekit.io/thissidemayur/ogopengraph_LgzDvH4XMP.jpg", // replace
-        width: 1200,
-        height: 630,
-        alt: "TechLife",
-      },
+    url: "https://ik.imagekit.io/shs47vfch/ogopengraph_LgzDvH4XMP.jpg", 
+    width: 1200,
+    height: 630,
+    alt: "TechLife",
+  },
     ],
   },
   twitter: {
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: "TechLife",
     description:
       "Create, share and explore blogs with TechLife — a platform for creators and learners alike.",
-    images: ["https://ik.imagekit.io/thissidemayur/ogopengraph_LgzDvH4XMP.jpg"], // here replace
+    images: ["https://ik.imagekit.io/shs47vfch/ogopengraph_LgzDvH4XMP.jpg"], // here replace
   },
   other: {
     

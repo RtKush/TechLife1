@@ -28,7 +28,7 @@ const CommentCard: React.FC<CommentCardProps> = ({
         {/* If you have image later */}
         <Image
           src={
-            avatarUrl || "https://ik.imagekit.io/thissidemayur/a1_IQta-C5YP.jpg"
+            avatarUrl || "https://ik.imagekit.io/shs47vfch/ogopengraph_LgzDvH4XMP.jpg"
           }
           alt={"image not found"}
           className="object-cover"

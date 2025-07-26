@@ -105,7 +105,7 @@ const userSchema = new Schema<IUser>(
     },
     avatar: {
       type: String,
-      default: "https://ik.imagekit.io/thissidemayur/a1_-IVPC5Ug1.avif",
+      default: "https://ik.imagekit.io/shs47vfch/ogopengraph_LgzDvH4XMP.jpg",
     },
     bio: {
       type: String,

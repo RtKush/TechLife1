@@ -9,7 +9,8 @@
 // module.exports = nextConfig;
 
 // next.config.js
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     domains: ['ik.imagekit.io'],
   },
@@ -17,3 +18,6 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
 };
+
+module.exports = nextConfig;
+
