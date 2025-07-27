@@ -142,11 +142,11 @@ export default withAuth(
 );
 
 // ✅ Matcher (same as before)
-// export const config = {
-//   matcher: ["/((?!_next/static|_next/image|favicon.ico|images/|public/).*)"],
-// };
-
 export const config = {
-  matcher: ["/dashboard/:path*", "/create-blog", "/profile/:path*"], // ✅ not /auth/*
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|images/|public/).*)"],
 };
+
+// export const config = {
+//   matcher: ["/dashboard/:path*", "/create-blog", "/profile/:path*"], // ✅ not /auth/*
+// };
 
