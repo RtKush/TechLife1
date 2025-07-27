@@ -24,18 +24,18 @@ export default function SigninForm() {
   const router = useRouter();
   const siginData: SubmitHandler<formInput> = async (data) => {
     try {
-      // const result = await signIn("credentials", {
-      //   email: data.email,
-      //   password: data.password,
-      //   redirect: false, // stay on same page to handle manually
-      // });
-
       const result = await signIn("credentials", {
-  email: data.email,
-  password: data.password,
-  redirect: false,
-  callbackUrl: "/", // ✅ prevent redirect loop
-  });
+        email: data.email,
+        password: data.password,
+        redirect: false, // stay on same page to handle manually
+      });
+
+  //     const result = await signIn("credentials", {
+  // email: data.email,
+  // password: data.password,
+  // redirect: false,
+  // callbackUrl: "/", // ✅ prevent redirect loop
+  // });
 
 
       if (result?.error === "CredentialsSignin" || result?.error) {
