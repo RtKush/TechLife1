@@ -141,11 +141,11 @@ export const metadata: Metadata = {
     "open blogging platform",
     "collaborative learning",
   ],
-  authors: [{ name: "Rt Kush", url: "https://techlife-rtkush.vercel.app/" }],
+  authors: [{ name: "Rt Kush", url: "https://techlifever1.vercel.app/" }],
   creator: "Rt Kush",
   openGraph: {
     type: "website",
-    url: "https://techlife-rtkush.vercel.app/",
+    url: "https://techlifever1.vercel.app/",
     title: "TechLife",
     description:
       "Create, discover and learn with TechLife — where blogs and ideas meet for everyone.",
@@ -171,7 +171,7 @@ export const metadata: Metadata = {
     "linkedin:site": "#",
     "github:site": "https://github.com/rtkush",
   },
-  metadataBase: new URL("https://techlife-rtkush.vercel.app"),
+  metadataBase: new URL("https://techlifever1.vercel.app"),
 };
 
 export default function RootLayout({
