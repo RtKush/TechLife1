@@ -153,7 +153,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 // ✅ Allowed origin for CORS
-const allowedOrigin = "https://techlifever1.vercel.app/";
+const allowedOrigin = "https://tech-life1-s5cv.vercel.app/";
 
 // ✅ CORS helper
 function withCORS(response: NextResponse) {

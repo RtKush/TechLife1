@@ -33,12 +33,12 @@ const HomeBlog = () => {
   const { data: blog3, isLoading: isLoading3 } = useGetBlogByIDQuery(
     "what-is-tor-browser-a-beginners-guide-to-online-anonymity-an-tgud"
   );
-  // const { data: blog2, isLoading: isLoading2 } = useGetBlogByIDQuery(
-  //   "Men's-Mental-Health%3A-Battling-Loneliness-and-Silence-elhw"
-  // );
-   const { data: blog2, isLoading: isLoading2 } = useGetBlogByIDQuery(
-    "Men%27s-Mental-Health%3A-Battling-Loneliness-and-Silence-elhw"
+  const { data: blog2, isLoading: isLoading2 } = useGetBlogByIDQuery(
+    "Men's-Mental-Health%3A-Battling-Loneliness-and-Silence-elhw"
   );
+  //  const { data: blog2, isLoading: isLoading2 } = useGetBlogByIDQuery(
+  //   "Men%27s-Mental-Health%3A-Battling-Loneliness-and-Silence-elhw"
+  // );
 
   const { data: blog4, isLoading: isLoading4 } = useGetBlogByIDQuery(
     "blind-followers-fake-saints-and-the-lost-essence-of-humanity-v5hm"
