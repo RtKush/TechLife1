@@ -91,10 +91,15 @@ export const authOptions: NextAuthOptions = {
     },
 
     // Step 3: Redirects based on outcome of login/logout
+    // pages: {
+    //     signIn: "/login",
+    //     error: "/login"
+    // },
     pages: {
-        signIn: "/login",
-        error: "/login"
-    },
+  signIn: "/auth/login",  // ✅ your actual custom login page
+  error: "/auth/login",   // ✅ same page, if you want
+},
+
 
     // Step 4: Choose session strategy (JWT or database)
     session: {
