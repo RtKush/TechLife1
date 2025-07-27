@@ -76,22 +76,88 @@
 
 
 
+// import { connectToDB } from "@/lib/db.lib";
+// import User from "@/model/user.model";
+// import { NextRequest, NextResponse } from "next/server";
+
+// export async function POST(req: NextRequest) {
+//   try {
+//     // ── 1. Parse request body ─────────────────────────────
+//     const body = await req.json();
+//     const rawEmail: string = body?.email;
+//     const rawPassword: string = body?.password;
+
+//     // ── 2. Basic validation ───────────────────────────────
+//     if (!rawEmail || !rawPassword) {
+//       return NextResponse.json(
+//         { error: "Both email and password are required." },
+//         { status: 400 }
+//       );
+//     }
+
+//     const email = rawEmail.toLowerCase().trim();
+//     const password = rawPassword.trim();
+
+//     if (password.length < 6) {
+//       return NextResponse.json(
+//         { error: "Password must be at least 6 characters long." },
+//         { status: 400 }
+//       );
+//     }
+
+//     // ── 3. Connect to DB ──────────────────────────────────
+//     await connectToDB();
+
+//     // ── 4. Check for existing user ────────────────────────
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return NextResponse.json(
+//         { error: `User already exists with email: ${email}` },
+//         { status: 409 }
+//       );
+//     }
+
+//     // ── 5. Create new user ────────────────────────────────
+//     const newUser = new User({ email, password });
+//     await newUser.save(); // triggers pre("save") hook for hashing, etc.
+
+//     return NextResponse.json(
+//       { message: "✅ User registered successfully!" },
+//       { status: 201 }
+//     );
+//   } catch (err: any) {
+//     console.error("[REGISTER] ❌ Server error:", err.message || err);
+//     return NextResponse.json(
+//       { error: "Server error. Please try again later." },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
+
 import { connectToDB } from "@/lib/db.lib";
 import User from "@/model/user.model";
 import { NextRequest, NextResponse } from "next/server";
 
+const allowedOrigin = "https://tech-life1-cn5s.vercel.app";
+
 export async function POST(req: NextRequest) {
   try {
-    // ── 1. Parse request body ─────────────────────────────
     const body = await req.json();
     const rawEmail: string = body?.email;
     const rawPassword: string = body?.password;
 
-    // ── 2. Basic validation ───────────────────────────────
     if (!rawEmail || !rawPassword) {
-      return NextResponse.json(
-        { error: "Both email and password are required." },
-        { status: 400 }
+      return new NextResponse(
+        JSON.stringify({ error: "Both email and password are required." }),
+        {
+          status: 400,
+          headers: {
+            "Access-Control-Allow-Origin": allowedOrigin,
+            "Content-Type": "application/json",
+          },
+        }
       );
     }
 
@@ -99,37 +165,57 @@ export async function POST(req: NextRequest) {
     const password = rawPassword.trim();
 
     if (password.length < 6) {
-      return NextResponse.json(
-        { error: "Password must be at least 6 characters long." },
-        { status: 400 }
+      return new NextResponse(
+        JSON.stringify({ error: "Password must be at least 6 characters long." }),
+        {
+          status: 400,
+          headers: {
+            "Access-Control-Allow-Origin": allowedOrigin,
+            "Content-Type": "application/json",
+          },
+        }
       );
     }
 
-    // ── 3. Connect to DB ──────────────────────────────────
     await connectToDB();
-
-    // ── 4. Check for existing user ────────────────────────
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return NextResponse.json(
-        { error: `User already exists with email: ${email}` },
-        { status: 409 }
+      return new NextResponse(
+        JSON.stringify({ error: `User already exists with email: ${email}` }),
+        {
+          status: 409,
+          headers: {
+            "Access-Control-Allow-Origin": allowedOrigin,
+            "Content-Type": "application/json",
+          },
+        }
       );
     }
 
-    // ── 5. Create new user ────────────────────────────────
     const newUser = new User({ email, password });
-    await newUser.save(); // triggers pre("save") hook for hashing, etc.
+    await newUser.save();
 
-    return NextResponse.json(
-      { message: "✅ User registered successfully!" },
-      { status: 201 }
+    return new NextResponse(
+      JSON.stringify({ message: "✅ User registered successfully!" }),
+      {
+        status: 201,
+        headers: {
+          "Access-Control-Allow-Origin": allowedOrigin,
+          "Content-Type": "application/json",
+        },
+      }
     );
   } catch (err: any) {
     console.error("[REGISTER] ❌ Server error:", err.message || err);
-    return NextResponse.json(
-      { error: "Server error. Please try again later." },
-      { status: 500 }
+    return new NextResponse(
+      JSON.stringify({ error: "Server error. Please try again later." }),
+      {
+        status: 500,
+        headers: {
+          "Access-Control-Allow-Origin": allowedOrigin,
+          "Content-Type": "application/json",
+        },
+      }
     );
   }
 }

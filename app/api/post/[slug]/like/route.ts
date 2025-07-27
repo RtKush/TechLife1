@@ -60,7 +60,7 @@ import Blog from "@/model/blog.model";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-const allowedOrigin = "https://tech-life1-cn5s.vercel.app";
+const allowedOrigin = "https://tech-life1-cn5s.vercel.app/";
 
 function withCORS(response: NextResponse) {
   response.headers.set("Access-Control-Allow-Origin", allowedOrigin);
