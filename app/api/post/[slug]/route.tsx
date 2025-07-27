@@ -157,12 +157,36 @@
 //   }
 // }
 
-
 import { connectToDB } from "@/lib/db.lib";
 import Blog from "@/model/blog.model";
 import { NextRequest, NextResponse } from "next/server";
 
+// ✅ CORS-allowed methods
+const allowedMethods = ["GET", "OPTIONS"];
+
+export async function middleware(req: NextRequest) {
+  const res = new NextResponse();
+
+  // CORS headers
+  res.headers.set("Access-Control-Allow-Origin", "*");
+  res.headers.set("Access-Control-Allow-Methods", allowedMethods.join(","));
+  res.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return new NextResponse(null, { status: 200 });
+  }
+
+  return res;
+}
+
 export async function GET(req: NextRequest) {
+  // ✅ Add CORS headers to response
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": allowedMethods.join(","),
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+
   const url = req.nextUrl;
   const encodingSlug = url.pathname.split("/").pop();
   const slug = decodeURIComponent(encodingSlug || "");
@@ -170,7 +194,7 @@ export async function GET(req: NextRequest) {
   if (!slug) {
     return NextResponse.json(
       { error: "slug is not present!" },
-      { status: 400 }
+      { status: 400, headers }
     );
   }
 
@@ -182,18 +206,22 @@ export async function GET(req: NextRequest) {
       .populate("authorId", "userName")
       .lean();
 
-    if (!blog)
-      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+    if (!blog) {
+      return NextResponse.json(
+        { error: "Blog not found" },
+        { status: 404, headers }
+      );
+    }
 
     return NextResponse.json(
       { message: "Blog found successfully", data: blog },
-      { status: 200 }
+      { status: 200, headers }
     );
   } catch (error) {
     console.error("Error while fetching blog post:", error);
     return NextResponse.json(
       { error: "Internal server error while fetching post." },
-      { status: 500 }
+      { status: 500, headers }
     );
   }
 }
