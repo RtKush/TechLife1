@@ -140,7 +140,7 @@
 // import User from "@/model/user.model";
 // import { NextRequest, NextResponse } from "next/server";
 
-// const allowedOrigin = "https://tech-life1-cn5s.vercel.app";
+// const allowedOrigin = "https://techlifever1.vercel.app";
 
 // export async function POST(req: NextRequest) {
 //   try {

@@ -60,7 +60,7 @@ import Blog from "@/model/blog.model";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-const allowedOrigin = "https://tech-life1-cn5s.vercel.app/";
+const allowedOrigin = "https://techlifever1.vercel.app/";
 
 function withCORS(response: NextResponse) {
   response.headers.set("Access-Control-Allow-Origin", allowedOrigin);
@@ -128,7 +128,7 @@ export const POST = async (req: NextRequest) => {
 //   return new Response(null, {
 //     status: 204,
 //     headers: {
-//       "Access-Control-Allow-Origin": "https://tech-life1-cn5s.vercel.app",
+//       "Access-Control-Allow-Origin": "https://techlifever1.vercel.app",
 //       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
 //       "Access-Control-Allow-Headers": "Content-Type, Authorization",
 //     },
