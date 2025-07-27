@@ -124,14 +124,24 @@ export const POST = async (req: NextRequest) => {
 };
 
 // ✅ Preflight handler
+// export const OPTIONS = async () => {
+//   return new Response(null, {
+//     status: 204,
+//     headers: {
+//       "Access-Control-Allow-Origin": "https://tech-life1-cn5s.vercel.app",
+//       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+//       "Access-Control-Allow-Headers": "Content-Type, Authorization",
+//     },
+//   });
+// };
+
 export const OPTIONS = async () => {
   return new Response(null, {
     status: 204,
     headers: {
-      "Access-Control-Allow-Origin": "https://tech-life1-cn5s.vercel.app",
+      "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },
   });
 };
-
