@@ -156,37 +156,21 @@
 //     throw error;
 //   }
 // }
-
 import { connectToDB } from "@/lib/db.lib";
 import Blog from "@/model/blog.model";
+import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-// ✅ CORS-allowed methods
 const allowedMethods = ["GET", "OPTIONS"];
 
-export async function middleware(req: NextRequest) {
-  const res = new NextResponse();
+const defaultHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": allowedMethods.join(","),
+  "Access-Control-Allow-Headers": "Content-Type",
+};
 
-  // CORS headers
-  res.headers.set("Access-Control-Allow-Origin", "*");
-  res.headers.set("Access-Control-Allow-Methods", allowedMethods.join(","));
-  res.headers.set("Access-Control-Allow-Headers", "Content-Type");
-
-  if (req.method === "OPTIONS") {
-    return new NextResponse(null, { status: 200 });
-  }
-
-  return res;
-}
-
+// ✅ Handle GET: fetch blog by slug
 export async function GET(req: NextRequest) {
-  // ✅ Add CORS headers to response
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": allowedMethods.join(","),
-    "Access-Control-Allow-Headers": "Content-Type",
-  };
-
   const url = req.nextUrl;
   const encodingSlug = url.pathname.split("/").pop();
   const slug = decodeURIComponent(encodingSlug || "");
@@ -194,14 +178,13 @@ export async function GET(req: NextRequest) {
   if (!slug) {
     return NextResponse.json(
       { error: "slug is not present!" },
-      { status: 400, headers }
+      { status: 400, headers: defaultHeaders }
     );
   }
 
   try {
     await connectToDB();
 
-    console.log("🔍 Fetching blog with slug:", slug);
     const blog = await Blog.findOne({ slug })
       .populate("authorId", "userName")
       .lean();
@@ -209,19 +192,85 @@ export async function GET(req: NextRequest) {
     if (!blog) {
       return NextResponse.json(
         { error: "Blog not found" },
-        { status: 404, headers }
+        { status: 404, headers: defaultHeaders }
       );
     }
 
     return NextResponse.json(
       { message: "Blog found successfully", data: blog },
-      { status: 200, headers }
+      { status: 200, headers: defaultHeaders }
     );
   } catch (error) {
     console.error("Error while fetching blog post:", error);
     return NextResponse.json(
       { error: "Internal server error while fetching post." },
-      { status: 500, headers }
+      { status: 500, headers: defaultHeaders }
     );
   }
+}
+
+// ✅ Handle POST: like/unlike blog
+export async function POST(req: NextRequest) {
+  const token = await getToken({ req });
+
+  if (!token) {
+    return NextResponse.json(
+      { message: "Unauthorized" },
+      { status: 401, headers: defaultHeaders }
+    );
+  }
+
+  const url = req.nextUrl;
+  const urlSplit = url.pathname.split("/");
+  const slug = urlSplit[urlSplit.length - 2];
+
+  if (!slug) {
+    return NextResponse.json(
+      { message: "Undefined blog" },
+      { status: 400, headers: defaultHeaders }
+    );
+  }
+
+  try {
+    await connectToDB();
+
+    const blog = await Blog.findOne({ slug });
+    if (!blog) {
+      return NextResponse.json(
+        { message: "Blog not found" },
+        { status: 404, headers: defaultHeaders }
+      );
+    }
+
+    const userId = token.id;
+    const alreadyLiked = blog.likes.includes(userId);
+
+    if (alreadyLiked) blog.likes.pull(userId);
+    else blog.likes.addToSet(userId);
+
+    await blog.save({ validateBeforeSave: false });
+
+    return NextResponse.json(
+      {
+        message: "Like toggled",
+        likesCount: blog.likes.length,
+        liked: !alreadyLiked,
+      },
+      { status: 200, headers: defaultHeaders }
+    );
+  } catch (error) {
+    console.error("Error while liking blog:", error);
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500, headers: defaultHeaders }
+    );
+  }
+}
+
+// ✅ Handle OPTIONS: CORS preflight
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: defaultHeaders,
+  });
 }
