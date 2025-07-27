@@ -28,6 +28,7 @@ export default function SigninForm() {
         email: data.email,
         password: data.password,
         redirect: false, // stay on same page to handle manually
+        
       });
 
   //     const result = await signIn("credentials", {
