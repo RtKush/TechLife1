@@ -221,9 +221,63 @@
 // }
 
 
+// import { NextRequest, NextResponse } from "next/server";
+// import User from "@/model/user.model";
+// import { connectToDB } from "@/lib/db.lib";
+
+// export async function POST(req: NextRequest) {
+//   try {
+//     const body = await req.json();
+//     const email = body.email?.toLowerCase().trim();
+//     const password = body.password?.trim();
+
+//     if (!email || !password || password.length < 6) {
+//       return NextResponse.json({ error: "Invalid input." }, { status: 400 });
+//     }
+
+//     await connectToDB();
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return NextResponse.json({ error: "User already exists." }, { status: 409 });
+//     }
+
+//     const newUser = new User({ email, password });
+//     await newUser.save();
+
+//     return new NextResponse(JSON.stringify({ message: "User registered!" }), {
+//       status: 201,
+//       headers: {
+//         "Access-Control-Allow-Origin": "*",
+//       },
+//     });
+//   } catch (err: any) {
+//     return new NextResponse(JSON.stringify({ error: "Server error" }), {
+//       status: 500,
+//       headers: {
+//         "Access-Control-Allow-Origin": "*",
+//       },
+//     });
+//   }
+// }
+
+// export function OPTIONS() {
+//   return new NextResponse(null, {
+//     status: 200,
+//     headers: {
+//       "Access-Control-Allow-Origin": "*",
+//       "Access-Control-Allow-Methods": "POST, OPTIONS",
+//       "Access-Control-Allow-Headers": "Content-Type",
+//     },
+//   });
+// }
+
+
+// File: app/api/auth/register/route.js
+
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/model/user.model";
 import { connectToDB } from "@/lib/db.lib";
+import bcrypt from "bcryptjs"; // 1. bcryptjs ko import karein
 
 export async function POST(req: NextRequest) {
   try {
@@ -231,40 +285,56 @@ export async function POST(req: NextRequest) {
     const email = body.email?.toLowerCase().trim();
     const password = body.password?.trim();
 
+    // Input validation
     if (!email || !password || password.length < 6) {
-      return NextResponse.json({ error: "Invalid input." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid input. Password must be at least 6 characters." },
+        { status: 400 }
+      );
     }
 
     await connectToDB();
+
+    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return NextResponse.json({ error: "User already exists." }, { status: 409 });
+      return NextResponse.json(
+        { error: "User with this email already exists." },
+        { status: 409 } // 409 Conflict is a better status code here
+      );
     }
 
-    const newUser = new User({ email, password });
+    // 2. Password ko hash karein
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // 3. Hashed password ke saath naya user banayein
+    const newUser = new User({
+      email,
+      password: hashedPassword, // Plain password ki jagah hashed password save karein
+    });
+
     await newUser.save();
 
-    return new NextResponse(JSON.stringify({ message: "User registered!" }), {
-      status: 201,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
+    return NextResponse.json(
+      { message: "User registered successfully!" },
+      { status: 201 }
+    );
   } catch (err: any) {
-    return new NextResponse(JSON.stringify({ error: "Server error" }), {
-      status: 500,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
+    console.error("REGISTRATION_ERROR", err);
+    return NextResponse.json(
+        { error: "An internal server error occurred." }, 
+        { status: 500 }
+    );
   }
 }
 
+// CORS preflight request ke liye OPTIONS handler
 export function OPTIONS() {
   return new NextResponse(null, {
-    status: 200,
+    status: 204, // 204 No Content is standard for preflight
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": "*", // Production mein ise apne front-end URL se badal dein
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     },
