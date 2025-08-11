@@ -151,7 +151,7 @@ export const metadata: Metadata = {
       "Create, discover and learn with TechLife — where blogs and ideas meet for everyone.",
     images: [
       {
-        url: "https://ik.imagekit.io/shs47vfch/ogopengraph_LgzDvH4XMP.jpg",
+        url: "https://ik.imagekit.io/kunksthhw/techl_MTZziv0VS?updatedAt=1753023136425",
         width: 1200,
         height: 630,
         alt: "TechLife",
@@ -165,7 +165,7 @@ export const metadata: Metadata = {
     title: "TechLife",
     description:
       "Create, share and explore blogs with TechLife — a platform for creators and learners alike.",
-    images: ["https://ik.imagekit.io/shs47vfch/ogopengraph_LgzDvH4XMP.jpg"],
+    images: ["https://ik.imagekit.io/kunksthhw/techl_MTZziv0VS?updatedAt=1753023136425"],
   },
   other: {
     "linkedin:site": "#",
