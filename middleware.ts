@@ -1,6 +1,7 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 
-// Yeh sabse simple middleware hai jo kuch nahi karta, bas request ko aage bhej deta hai
+// Yeh sabse simple middleware hai jo request ko aage bhej deta hai
 export function middleware(req: NextRequest) {
   return NextResponse.next();
 }
