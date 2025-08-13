@@ -274,6 +274,7 @@
 
 // File: app/api/auth/register/route.js
 
+
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/model/user.model";
 import { connectToDB } from "@/lib/db.lib";
