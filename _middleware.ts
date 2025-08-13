@@ -150,23 +150,23 @@
 // //   matcher: ["/dashboard/:path*", "/create-blog", "/profile/:path*"], // ✅ not /auth/*
 // // };
 
-import { NextRequest, NextResponse } from 'next/server';
+// import { NextRequest, NextResponse } from 'next/server';
 
-export function middleware(req: NextRequest) {
-  // OPTIONS requests ko handle karein (CORS ke liye zaroori)
-  if (req.method === 'OPTIONS') {
-    const response = new NextResponse(null, { status: 204 });
-    response.headers.set('Access-Control-Allow-Origin', '*');
-    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return response;
-  }
+// export function middleware(req: NextRequest) {
+//   // OPTIONS requests ko handle karein (CORS ke liye zaroori)
+//   if (req.method === 'OPTIONS') {
+//     const response = new NextResponse(null, { status: 204 });
+//     response.headers.set('Access-Control-Allow-Origin', '*');
+//     response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//     response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     return response;
+//   }
   
-  // Baaki sabhi requests ko aage jaane dein
-  return NextResponse.next();
-}
+//   // Baaki sabhi requests ko aage jaane dein
+//   return NextResponse.next();
+// }
 
-// Matcher (kon se routes par yeh middleware chalega)
-export const config = {
-  matcher: '/api/:path*', // Sirf API routes ke liye chalayein
-};
+// // Matcher (kon se routes par yeh middleware chalega)
+// export const config = {
+//   matcher: '/api/:path*', // Sirf API routes ke liye chalayein
+// };
