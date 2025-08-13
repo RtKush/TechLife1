@@ -101,52 +101,72 @@
 
 
 
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+// import { withAuth } from "next-auth/middleware";
+// import { NextResponse } from "next/server";
 
-export default withAuth(
-  function middleware(req) {
-    const res = NextResponse.next();
+// export default withAuth(
+//   function middleware(req) {
+//     const res = NextResponse.next();
 
-    // ✅ Set CORS headers
-    res.headers.set("Access-Control-Allow-Origin", "*");
-    res.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//     // ✅ Set CORS headers
+//     res.headers.set("Access-Control-Allow-Origin", "*");
+//     res.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//     res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-    return res;
-  },
-  {
-    callbacks: {
-      authorized({ req, token }) {
-        const { pathname } = req.nextUrl;
+//     return res;
+//   },
+//   {
+//     callbacks: {
+//       authorized({ req, token }) {
+//         const { pathname } = req.nextUrl;
 
-        const publicPaths = ["/", "/auth/login", "/auth/register"];
-        const publicPrefixes = [
-          "/api/auth",
-          "/blog",
-          "/profile",
-          "/api/search"
-        ];
+//         const publicPaths = ["/", "/auth/login", "/auth/register"];
+//         const publicPrefixes = [
+//           "/api/auth",
+//           "/blog",
+//           "/profile",
+//           "/api/search"
+//         ];
 
-        if (pathname.startsWith("/api/user") && req.method === "GET") return true;
-        if (pathname.startsWith("/api/post") && req.method === "GET") return true;
-        if (pathname.startsWith("/api/comments") && req.method === "GET") return true;
+//         if (pathname.startsWith("/api/user") && req.method === "GET") return true;
+//         if (pathname.startsWith("/api/post") && req.method === "GET") return true;
+//         if (pathname.startsWith("/api/comments") && req.method === "GET") return true;
 
-        if (publicPaths.includes(pathname)) return true;
-        if (publicPrefixes.some(prefix => pathname.startsWith(prefix))) return true;
+//         if (publicPaths.includes(pathname)) return true;
+//         if (publicPrefixes.some(prefix => pathname.startsWith(prefix))) return true;
 
-        return !!token;
-      }
-    }
-  }
-);
+//         return !!token;
+//       }
+//     }
+//   }
+// );
 
-// ✅ Matcher (same as before)
-export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|images/|public/).*)"],
-};
-
+// // ✅ Matcher (same as before)
 // export const config = {
-//   matcher: ["/dashboard/:path*", "/create-blog", "/profile/:path*"], // ✅ not /auth/*
+//   matcher: ["/((?!_next/static|_next/image|favicon.ico|images/|public/).*)"],
 // };
 
+// // export const config = {
+// //   matcher: ["/dashboard/:path*", "/create-blog", "/profile/:path*"], // ✅ not /auth/*
+// // };
+
+import { NextRequest, NextResponse } from 'next/server';
+
+export function middleware(req: NextRequest) {
+  // OPTIONS requests ko handle karein (CORS ke liye zaroori)
+  if (req.method === 'OPTIONS') {
+    const response = new NextResponse(null, { status: 204 });
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    return response;
+  }
+  
+  // Baaki sabhi requests ko aage jaane dein
+  return NextResponse.next();
+}
+
+// Matcher (kon se routes par yeh middleware chalega)
+export const config = {
+  matcher: '/api/:path*', // Sirf API routes ke liye chalayein
+};

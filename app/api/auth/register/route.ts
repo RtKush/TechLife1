@@ -343,16 +343,35 @@
 // }
 
 
-
 import { NextRequest, NextResponse } from "next/server";
+import User from "@/model/user.model";
+import { connectToDB } from "@/lib/db.lib";
+import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
-  // Yeh log Vercel mein dikhega jab API call hogi
-  console.log("--- REGISTER API HIT! ---"); 
-  console.log("--- TEST CODE IS RUNNING ---");
+  try {
+    await connectToDB();
+    const body = await req.json();
+    const { email, password } = body;
 
-  return NextResponse.json(
-    { message: "TEST SUCCESSFUL! The POST request reached the server." },
-    { status: 200 }
-  );
+    if (!email || !password || password.length < 6) {
+      return NextResponse.json({ error: "Invalid input." }, { status: 400 });
+    }
+
+    const existingUser = await User.findOne({ email: email.toLowerCase().trim() });
+    if (existingUser) {
+      return NextResponse.json({ error: "User with this email already exists." }, { status: 409 });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new User({ email: email.toLowerCase().trim(), password: hashedPassword });
+    await newUser.save();
+
+    return NextResponse.json({ message: "User registered successfully!" }, { status: 201 });
+  } catch (err: any) {
+    console.error("REGISTRATION_ERROR", err);
+    return NextResponse.json({ error: "An internal server error occurred." }, { status: 500 });
+  }
 }
