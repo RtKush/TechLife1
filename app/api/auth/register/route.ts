@@ -275,69 +275,84 @@
 // File: app/api/auth/register/route.js
 
 
+// import { NextRequest, NextResponse } from "next/server";
+// import User from "@/model/user.model";
+// import { connectToDB } from "@/lib/db.lib";
+// import bcrypt from "bcryptjs"; // --- YEH LINE MISSING THI ---
+
+// export async function POST(req: NextRequest) {
+//   try {
+//     const body = await req.json();
+//     const email = body.email?.toLowerCase().trim();
+//     const password = body.password?.trim();
+
+//     // Input validation
+//     if (!email || !password || password.length < 6) {
+//       return NextResponse.json(
+//         { error: "Invalid input. Password must be at least 6 characters." },
+//         { status: 400 }
+//       );
+//     }
+
+//     await connectToDB();
+
+//     // Check if user already exists
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return NextResponse.json(
+//         { error: "User with this email already exists." },
+//         { status: 409 } // 409 Conflict is a better status code here
+//       );
+//     }
+
+//     // Password ko hash karein
+//     const salt = await bcrypt.genSalt(10);
+//     const hashedPassword = await bcrypt.hash(password, salt);
+
+//     // Hashed password ke saath naya user banayein
+//     const newUser = new User({
+//       email,
+//       password: hashedPassword, // Plain password ki jagah hashed password save karein
+//     });
+
+//     await newUser.save();
+
+//     return NextResponse.json(
+//       { message: "User registered successfully!" },
+//       { status: 201 }
+//     );
+//   } catch (err: any) {
+//     console.error("REGISTRATION_ERROR", err);
+//     return NextResponse.json(
+//       { error: "An internal server error occurred." },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+// // CORS preflight request ke liye OPTIONS handler
+// export function OPTIONS() {
+//   return new NextResponse(null, {
+//     status: 204,
+//     headers: {
+//       "Access-Control-Allow-Origin": "*", // Production mein ise apne front-end URL se badal dein
+//       "Access-Control-Allow-Methods": "POST, OPTIONS",
+//       "Access-Control-Allow-Headers": "Content-Type",
+//     },
+//   });
+// }
+
+
+
 import { NextRequest, NextResponse } from "next/server";
-import User from "@/model/user.model";
-import { connectToDB } from "@/lib/db.lib";
-import bcrypt from "bcryptjs"; // --- YEH LINE MISSING THI ---
 
 export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
-    const email = body.email?.toLowerCase().trim();
-    const password = body.password?.trim();
+  // Yeh log Vercel mein dikhega jab API call hogi
+  console.log("--- REGISTER API HIT! ---"); 
+  console.log("--- TEST CODE IS RUNNING ---");
 
-    // Input validation
-    if (!email || !password || password.length < 6) {
-      return NextResponse.json(
-        { error: "Invalid input. Password must be at least 6 characters." },
-        { status: 400 }
-      );
-    }
-
-    await connectToDB();
-
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return NextResponse.json(
-        { error: "User with this email already exists." },
-        { status: 409 } // 409 Conflict is a better status code here
-      );
-    }
-
-    // Password ko hash karein
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Hashed password ke saath naya user banayein
-    const newUser = new User({
-      email,
-      password: hashedPassword, // Plain password ki jagah hashed password save karein
-    });
-
-    await newUser.save();
-
-    return NextResponse.json(
-      { message: "User registered successfully!" },
-      { status: 201 }
-    );
-  } catch (err: any) {
-    console.error("REGISTRATION_ERROR", err);
-    return NextResponse.json(
-      { error: "An internal server error occurred." },
-      { status: 500 }
-    );
-  }
-}
-
-// CORS preflight request ke liye OPTIONS handler
-export function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      "Access-Control-Allow-Origin": "*", // Production mein ise apne front-end URL se badal dein
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
-  });
+  return NextResponse.json(
+    { message: "TEST SUCCESSFUL! The POST request reached the server." },
+    { status: 200 }
+  );
 }
