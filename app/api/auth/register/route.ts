@@ -277,7 +277,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/model/user.model";
 import { connectToDB } from "@/lib/db.lib";
-import bcrypt from "bcryptjs"; // 1. bcryptjs ko import karein
+import bcrypt from "bcryptjs"; // --- YEH LINE MISSING THI ---
 
 export async function POST(req: NextRequest) {
   try {
@@ -304,11 +304,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 2. Password ko hash karein
+    // Password ko hash karein
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // 3. Hashed password ke saath naya user banayein
+    // Hashed password ke saath naya user banayein
     const newUser = new User({
       email,
       password: hashedPassword, // Plain password ki jagah hashed password save karein
@@ -323,8 +323,8 @@ export async function POST(req: NextRequest) {
   } catch (err: any) {
     console.error("REGISTRATION_ERROR", err);
     return NextResponse.json(
-        { error: "An internal server error occurred." }, 
-        { status: 500 }
+      { error: "An internal server error occurred." },
+      { status: 500 }
     );
   }
 }
@@ -332,7 +332,7 @@ export async function POST(req: NextRequest) {
 // CORS preflight request ke liye OPTIONS handler
 export function OPTIONS() {
   return new NextResponse(null, {
-    status: 204, // 204 No Content is standard for preflight
+    status: 204,
     headers: {
       "Access-Control-Allow-Origin": "*", // Production mein ise apne front-end URL se badal dein
       "Access-Control-Allow-Methods": "POST, OPTIONS",
