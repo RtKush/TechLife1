@@ -104,6 +104,33 @@
 //   }
 // }
 
+// import { NextRequest, NextResponse } from "next/server";
+// import { connectToDB } from "@/lib/db.lib";
+// import Blog from "@/model/blog.model";
+
+// export const GET = async (
+//   req: NextRequest,
+//   { params }: { params: { slug: string } }
+// ) => {
+//   try {
+//     await connectToDB();
+
+//     const rawSlug = decodeURIComponent(params.slug); // 👈 decode here
+
+//     const blog = await Blog.findOne({ slug: rawSlug });
+
+//     if (!blog) {
+//       return NextResponse.json({ message: "Blog not found" }, { status: 404 });
+//     }
+
+//     return NextResponse.json({ message: "Blog fetched", data: blog }, { status: 200 });
+//   } catch (error) {
+//     console.error("API ERROR:", error);
+//     return NextResponse.json({ message: "Server error" }, { status: 500 });
+//   }
+// };
+
+
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDB } from "@/lib/db.lib";
 import Blog from "@/model/blog.model";
@@ -115,17 +142,19 @@ export const GET = async (
   try {
     await connectToDB();
 
-    const rawSlug = decodeURIComponent(params.slug); // 👈 decode here
+    // URL se aaye hue slug ko decode karna zaroori hai
+    const rawSlug = decodeURIComponent(params.slug); 
 
     const blog = await Blog.findOne({ slug: rawSlug });
 
+    // Yeh condition bilkul sahi hai. Agar post na mile toh 404 hi jaana chahiye.
     if (!blog) {
       return NextResponse.json({ message: "Blog not found" }, { status: 404 });
     }
 
     return NextResponse.json({ message: "Blog fetched", data: blog }, { status: 200 });
   } catch (error) {
-    console.error("API ERROR:", error);
+    console.error("GET /api/post/[slug] error:", error);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 };
