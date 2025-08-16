@@ -131,30 +131,68 @@
 // };
 
 
+// import { NextRequest, NextResponse } from "next/server";
+// import { connectToDB } from "@/lib/db.lib";
+// import Blog from "@/model/blog.model";
+
+// export const GET = async (
+//   req: NextRequest,
+//   // --- YEH CORRECTION HAI ---
+//   context: { params: { slug: string } }
+// ) => {
+//   try {
+//     await connectToDB();
+
+//     // Slug ko context se nikalein
+//     const rawSlug = decodeURIComponent(context.params.slug);
+
+//     const blog = await Blog.findOne({ slug: rawSlug });
+
+//     if (!blog) {
+//       return NextResponse.json({ message: "Blog not found" }, { status: 404 });
+//     }
+
+//     return NextResponse.json({ message: "Blog fetched", data: blog }, { status: 200 });
+//   } catch (error) {
+//     console.error("API ERROR in /api/post/[slug]:", error);
+//     return NextResponse.json({ message: "Server error" }, { status: 500 });
+//   }
+// };
+
+
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDB } from "@/lib/db.lib";
 import Blog from "@/model/blog.model";
 
 export const GET = async (
   req: NextRequest,
-  // --- YEH CORRECTION HAI ---
-  context: { params: { slug: string } }
+  { params }: { params: { slug: string } } // This is the corrected signature
 ) => {
   try {
+    // 1. Establish database connection
     await connectToDB();
 
-    // Slug ko context se nikalein
-    const rawSlug = decodeURIComponent(context.params.slug);
+    // 2. Safely decode the slug from the URL
+    const slug = decodeURIComponent(params.slug);
 
-    const blog = await Blog.findOne({ slug: rawSlug });
+    // 3. Find the blog post by its slug
+    const blog = await Blog.findOne({ slug: slug });
 
+    // 4. Handle case where blog is not found
     if (!blog) {
       return NextResponse.json({ message: "Blog not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ message: "Blog fetched", data: blog }, { status: 200 });
+    // 5. Return the found blog post
+    return NextResponse.json(
+      { message: "Blog fetched successfully", data: blog },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error("API ERROR in /api/post/[slug]:", error);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    console.error("API Error in /api/post/[slug]:", error);
+    return NextResponse.json(
+      { message: "An internal server error occurred" },
+      { status: 500 }
+    );
   }
 };
