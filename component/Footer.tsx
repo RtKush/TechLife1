@@ -42,7 +42,7 @@ export default function Footer() {
               Developer & Founder @TechLife
             </p>
             <p className="text-orange-200 text-sm max-w-sm leading-relaxed">
-              MCA from NIT Raipur, Chhattisgarh. I love to Code. Passionate about building real-world solutions using full-stack development. Skilled in Java, React, Node.js, and
+              MCA from NIT Raipur, Chhattisgarh, India. I love to Code. Passionate about building real-world solutions using full-stack development. Skilled in Java, React, Node.js, and
 MongoDB with a focus on performance, simple design, and real-time features.
             </p>
            
