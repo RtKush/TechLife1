@@ -39,7 +39,6 @@ export const GET = async (req: NextRequest) => {
   try {
     await connectToDB();
 
-    // URL se slug directly nikaalna
     const url = new URL(req.url);
     const slug = url.pathname.split("/").pop(); // last segment of the path
 
@@ -65,3 +64,4 @@ export const GET = async (req: NextRequest) => {
     );
   }
 };
+
