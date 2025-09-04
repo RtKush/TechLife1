@@ -35,17 +35,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDB } from "@/lib/db.lib";
 import Blog from "@/model/blog.model";
 
-interface Params {
-  slug: string;
-}
-
-export const GET = async (req: NextRequest, context: { params: Params }) => {
+export const GET = async (req: NextRequest) => {
   try {
     await connectToDB();
 
-    const slug = decodeURIComponent(context.params.slug);
+    // URL se slug directly nikaalna
+    const url = new URL(req.url);
+    const slug = url.pathname.split("/").pop(); // last segment of the path
 
-    const blog = await Blog.findOne({ slug });
+    if (!slug) {
+      return NextResponse.json({ message: "Slug not provided" }, { status: 400 });
+    }
+
+    const blog = await Blog.findOne({ slug: decodeURIComponent(slug) });
 
     if (!blog) {
       return NextResponse.json({ message: "Blog not found" }, { status: 404 });
