@@ -1,87 +1,243 @@
+// "use client";
+
+// import { Eye, EyeOff, LogIn, Mail, Lock } from "lucide-react";
+
+// import { useState } from "react";
+// import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
+// import { toast } from "sonner";
+// import { signIn } from "next-auth/react";
+// import { useRouter } from "next/navigation";
+// import { isRTKError } from "@/types/rtkError.types";
+
+// interface formInput {
+//   email: string;
+//   password: string;
+// }
+// export default function SigninForm() {
+//   const [showPassword, setShowPassword] = useState(false);
+//   const { register, reset, handleSubmit } = useForm({
+//     defaultValues: {
+//       email: "",
+//       password: "",
+//     },
+//   });
+//   const router = useRouter();
+//   const siginData: SubmitHandler<formInput> = async (data) => {
+//     try {
+//       const result = await signIn("credentials", {
+//         email: data.email,
+//         password: data.password,
+//         redirect: false, // stay on same page to handle manually
+        
+//       });
+
+  
+
+
+//       if (result?.error === "CredentialsSignin" || result?.error) {
+//         toast.error(result?.error || "Login failed!");
+//       }
+//       if (result?.ok) {
+//         toast.success("Login Successfully!");
+//         reset();
+//         setTimeout(() => {
+//           router.push("/");
+//         }, 1000);
+//       }
+//     } catch (error) {
+//       console.log("error: ", error);
+
+//       if (isRTKError(error)) toast.error(error.data.error);
+//       else toast.error("Something went wrong");
+//     }
+//   };
+
+//   const onError = async (errors: FieldErrors<formInput>) => {
+//     if (errors.email?.message) toast.error(errors.email?.message);
+//     if (errors.password?.message) toast.error(errors.password?.message);
+//   };
+//   return (
+//     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+//       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+//         <div className="text-center space-y-2">
+//           <h2 className="text-3xl font-bold text-gray-800">Sign In</h2>
+//           <p className="text-sm text-orange-800">Welcome back to TechLife..</p>
+//         </div>
+
+//         <form className="space-y-4" onSubmit={handleSubmit(siginData, onError)}>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700">
+//               Email 
+//             </label>
+//             <div className="mt-1 flex items-center border rounded-lg overflow-hidden">
+//               <Mail className="h-5 w-5 mx-3 text-gray-400" />
+//               <input
+//                 type="email"
+//                 placeholder="techlife@example.com"
+//                 className="w-full p-3 outline-none"
+//                 {...register("email", {
+//                   required: "Email is required required",
+//                 })}
+//               />
+//             </div>
+//           </div>
+
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700">
+//               Password
+//             </label>
+//             <div className="mt-1 flex items-center border rounded-lg overflow-hidden">
+//               <Lock className="h-5 w-5 mx-3 text-gray-400" />
+//               <input
+//                 type={showPassword ? "text" : "password"}
+//                 placeholder="Your Password"
+//                 className="w-full p-3 outline-none"
+//                 {...register("password", {
+//                   required: "Password is  required",
+//                   minLength: {
+//                     value: 6,
+//                     message: "password has atleast 6 characters!",
+//                   },
+//                 })}
+//               />
+//               <button
+//                 type="button"
+//                 onClick={() => setShowPassword(!showPassword)}
+//                 className="px-3 text-gray-400 hover:text-gray-600"
+//               >
+//                 {showPassword ? (
+//                   <EyeOff className="h-5 w-5" />
+//                 ) : (
+//                   <Eye className="h-5 w-5" />
+//                 )}
+//               </button>
+//             </div>
+//             <div className="text-right mt-1">
+//               <a href="#" className="text-sm text-red-600 hover:underline">
+//                 Forgot password?
+//               </a>
+//             </div>
+//           </div>
+
+//           <button
+//             type="submit"
+//             className="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-3 rounded-lg hover:bg-cyan-700 transition"
+//           >
+//             <LogIn className="h-5 w-5" />
+//             Sign In
+//           </button>
+
+//           <div className="flex items-center my-4">
+//             <div className="flex-grow border-t border-gray-500"></div>
+//             <span className="mx-2 text-orange-600 text-sm">OR</span>
+//             <div className="flex-grow border-t border-gray-500"></div>
+//           </div>
+
+         
+//         </form>
+
+//         <p className="text-sm text-center text-gray-600 mt-6">
+//           Don&apos;t have an account?{" "}
+//           <a
+//             href="/auth/register"
+//             className="text-blue-900 hover:underline font-medium"
+//           >
+//             Sign Up
+//           </a>
+//         </p>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
 "use client";
 
 import { Eye, EyeOff, LogIn, Mail, Lock } from "lucide-react";
-
 import { useState } from "react";
 import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { isRTKError } from "@/types/rtkError.types";
+import Link from "next/link";
 
-interface formInput {
+// Define the shape of our form data for type safety
+interface FormInput {
   email: string;
   password: string;
 }
+
 export default function SigninForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const { register, reset, handleSubmit } = useForm({
+  const [isLoading, setIsLoading] = useState(false); // State to manage loading and disable the form
+  const { register, reset, handleSubmit } = useForm<FormInput>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
   const router = useRouter();
-  const siginData: SubmitHandler<formInput> = async (data) => {
+
+  // This function handles the actual form submission logic
+  const siginData: SubmitHandler<FormInput> = async (data) => {
+    setIsLoading(true); // Start loading state
+
     try {
+      // Attempt to sign in using the "credentials" provider
       const result = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false, // stay on same page to handle manually
-        
+        ...data,
+        redirect: false, // This is crucial. It prevents a page reload and allows us to handle the response here.
       });
 
-  //     const result = await signIn("credentials", {
-  // email: data.email,
-  // password: data.password,
-  // redirect: false,
-  // callbackUrl: "/", // ✅ prevent redirect loop
-  // });
-
-
-      if (result?.error === "CredentialsSignin" || result?.error) {
-        toast.error(result?.error || "Login failed!");
-      }
-      if (result?.ok) {
-        toast.success("Login Successfully!");
-        reset();
-        setTimeout(() => {
-          router.push("/");
-        }, 1000);
+      // This is the correct way to check for a login error from NextAuth.
+      // The `signIn` function resolves successfully but returns an object with an `error` property on failure.
+      if (result?.error) {
+        toast.error("Invalid email or password. Please try again.");
+      } else if (result?.ok) {
+        // This confirms the login was successful.
+        toast.success("Login Successful!");
+        reset(); // Clear the form fields
+        router.push("/");
+        router.refresh(); // Refresh the page to update the user session state across the app
       }
     } catch (error) {
-      console.log("error: ", error);
-
-      if (isRTKError(error)) toast.error(error.data.error);
-      else toast.error("Something went wrong");
+      // This catch block is for unexpected errors, like network issues, not for login failures.
+      console.error("An unexpected error occurred during sign in:", error);
+      toast.error("Something went wrong. Please check your connection.");
+    } finally {
+      setIsLoading(false); // Stop loading regardless of whether it succeeded or failed
     }
   };
 
-  const onError = async (errors: FieldErrors<formInput>) => {
-    if (errors.email?.message) toast.error(errors.email?.message);
-    if (errors.password?.message) toast.error(errors.password?.message);
+  // This function handles client-side validation errors from react-hook-form before submission
+  const onError = (errors: FieldErrors<FormInput>) => {
+    if (errors.email?.message) toast.error(errors.email.message);
+    if (errors.password?.message) toast.error(errors.password.message);
   };
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold text-gray-800">Sign In</h2>
-          <p className="text-sm text-orange-800">Welcome back to TechLife..</p>
+          <p className="text-sm text-gray-600">Welcome back to TechLife!</p>
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit(siginData, onError)}>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Email 
+              Email
             </label>
-            <div className="mt-1 flex items-center border rounded-lg overflow-hidden">
+            <div className="mt-1 flex items-center border rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-green-500">
               <Mail className="h-5 w-5 mx-3 text-gray-400" />
               <input
                 type="email"
                 placeholder="techlife@example.com"
                 className="w-full p-3 outline-none"
                 {...register("email", {
-                  required: "Email is required required",
+                  required: "Email is required",
                 })}
               />
             </div>
@@ -91,17 +247,17 @@ export default function SigninForm() {
             <label className="block text-sm font-medium text-gray-700">
               Password
             </label>
-            <div className="mt-1 flex items-center border rounded-lg overflow-hidden">
+            <div className="mt-1 flex items-center border rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-green-500">
               <Lock className="h-5 w-5 mx-3 text-gray-400" />
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Your Password"
                 className="w-full p-3 outline-none"
                 {...register("password", {
-                  required: "Password is  required",
+                  required: "Password is required",
                   minLength: {
                     value: 6,
-                    message: "password has atleast 6 characters!",
+                    message: "Password must be at least 6 characters",
                   },
                 })}
               />
@@ -118,7 +274,7 @@ export default function SigninForm() {
               </button>
             </div>
             <div className="text-right mt-1">
-              <a href="#" className="text-sm text-red-600 hover:underline">
+              <a href="#" className="text-sm text-green-600 hover:underline">
                 Forgot password?
               </a>
             </div>
@@ -126,31 +282,24 @@ export default function SigninForm() {
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-3 rounded-lg hover:bg-cyan-700 transition"
+            disabled={isLoading}
+            className="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition disabled:bg-gray-400"
           >
-            <LogIn className="h-5 w-5" />
-            Sign In
+            {isLoading ? "Signing In..." : <> <LogIn className="h-5 w-5" /> Sign In </>}
           </button>
-
-          <div className="flex items-center my-4">
-            <div className="flex-grow border-t border-gray-500"></div>
-            <span className="mx-2 text-orange-600 text-sm">OR</span>
-            <div className="flex-grow border-t border-gray-500"></div>
-          </div>
-
-         
         </form>
 
         <p className="text-sm text-center text-gray-600 mt-6">
           Don&apos;t have an account?{" "}
-          <a
+          <Link
             href="/auth/register"
-            className="text-blue-900 hover:underline font-medium"
+            className="text-green-700 hover:underline font-medium"
           >
             Sign Up
-          </a>
+          </Link>
         </p>
       </div>
     </div>
   );
 }
+

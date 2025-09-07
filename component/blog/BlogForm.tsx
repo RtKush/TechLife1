@@ -39,7 +39,6 @@ export default function BlogForm({
       },
     });
 
-  // ✅ Restore from localStorage for create
   useEffect(() => {
     if (mode === "create") {
       const storedDraft = localStorage.getItem("blog-draft");
@@ -50,7 +49,6 @@ export default function BlogForm({
     }
   }, [mode, reset]);
 
-  // ✅ Set initial data for edit
   useEffect(() => {
     if (mode === "edit" && initialData) {
       reset(initialData);

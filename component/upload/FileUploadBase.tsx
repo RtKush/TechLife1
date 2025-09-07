@@ -69,35 +69,3 @@ const FileUploadBase: React.FC<FileUploadProps> = ({
 
 export default FileUploadBase;
 
-/**
- * 🧠 Upload Architecture Summary
- *
- * - FileUploadBase handles upload logic using ImageKit's SDK.
- * - Wrapper components like ImageUpload/VideoUpload validate the file and handle UI.
- * - We pass `onSuccess` and `onProgress` as callback props to handle response and state in parent.
- *
- * - File type is checked using MIME type (file.type.startsWith("image/"))
- * - fs module isn't used because we upload directly from browser, not server.
- *
- * 🔁 Example:
- * <FileUploadBase
- *    file={file}
- *    onSuccess={(res) => { console.log(res) }}
- *    onProgress={(percent) => { console.log(percent + "%") }}
- * />
- */
-
-// **********************************************
-/*
-
-//  file structre for uploading file at imagekit
-
-1. FileUploadBase.tsx -> handle Logic for uploading files (video and image)
-
-2. ImageUpload.tsx -> UI+ validation for image
-
-3. VideoUpload.tsx -> UI+ validation for image
-
-all 3 files are kept in uploads directory
-*/
-// **********************************************

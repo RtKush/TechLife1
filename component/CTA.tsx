@@ -58,41 +58,7 @@ const people = [
     designation: "NIT Raipur",
     image:  "https://ik.imagekit.io/kunksthhw/Screenshot%202025-07-23%20230410.png?updatedAt=1753292121861",
   },
-  // {
-  //   id: 7,
-  //   name: "Umang",
-  //   designation: "NIT Raipur",
-  //   image:
-  //     "",
-  // },
-  //   {
-  //   id: 8,
-  //   name: "Kush Gupta",
-  //   designation: "NIT Raipur",
-  //   image:
-  //     "",
-  // },
-  //   {
-  //   id: 10,
-  //   name: "Vashu Tauk",
-  //   designation: "NIT Raipur",
-  //   image:
-  //     "",
-  // },
-  //   {
-  //   id: 11,
-  //   name: "Naman Patidar",
-  //   designation: "NIT Raipur",
-  //   image:
-  //     "",
-  // },
-  //   {
-  //   id: 12,
-  //   name: "Kaushal Patel",
-  //   designation: "NIT Raipur",
-  //   image:
-  //     "",
-  // },
+  
 ];
 
 const CTA = () => {

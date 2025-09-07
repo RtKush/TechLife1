@@ -16,7 +16,6 @@ export default function VideoUpload({
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  // 🖼️ Preview + validation logic
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) {
@@ -36,17 +35,16 @@ export default function VideoUpload({
       return;
     }
 
-    // ✅ All good — start uploading
     setUploading(true);
     setError(null);
     setFile(selectedFile);
     setPreviewUrl(URL.createObjectURL(selectedFile));
 
-    // 📢 Notify user upload started
+    //  Notify user upload started
     toast("Video upload started 🚀");
   };
 
-  // 📢 Called when upload finishes
+  //  Called when upload finishes
   const handleSuccess = (res: any) => {
     onSuccess(res);
     setUploading(false);
@@ -55,7 +53,7 @@ export default function VideoUpload({
     toast.success("Video uploaded successfully ✅");
   };
 
-  // 📢 Remove file / reset state
+  //  Remove file / reset state
   const handleRemove = () => {
     setFile(null);
     setUploading(false);
@@ -112,7 +110,7 @@ export default function VideoUpload({
           onProgress={(value: number) => {
             setProgress(value);
 
-            // 📢 Optional: show progress at major milestones
+            //  Optional: show progress at major milestones
             if (value === 100) {
               toast("Processing uploaded video...");
             }

@@ -4,11 +4,11 @@
 
 // mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 10000 })
 //   .then(() => {
-//     console.log("✅ Connected to MongoDB successfully!");
+//     console.log("Connected to MongoDB successfully!");
 //     mongoose.disconnect();
 //   })
 //   .catch((err) => {
-//     console.error("❌ MongoDB connection failed:");
+//     console.error(" MongoDB connection failed:");
 //     console.error(err.message);
 //   });
   
