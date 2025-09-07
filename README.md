@@ -117,7 +117,7 @@ yarn dev
 
 ````bash
 
-```bash Visit: http://localhost:3000 ```
+```bash Visit: https://tech-life1.vercel.app/ ```
 ````
 
 ## 📂 Folder Structure
